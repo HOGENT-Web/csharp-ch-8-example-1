@@ -6,7 +6,7 @@ namespace Client.Products.Components
 {
     public partial class Create
     {
-        private ProductDto.Create product = new();
+        private ProductDto.Mutate product = new();
         [Inject] public IProductService ProductService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
         private async Task CreateProductAsync()

@@ -74,6 +74,27 @@ namespace Services.Products
 
             return response;
         }
+
+        public async Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request)
+        {
+            await Task.Delay(100);
+            ProductResponse.Edit response = new();
+            var product = products.SingleOrDefault(x => x.Id == request.ProductId);
+            
+            var model = request.Product;
+            var price = new Money(model.Price);
+            var category = new Category(model.Category);
+
+            // You could use a Product.Edit method here.
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.InStock = model.InStock;
+            product.Category = category;
+            product.Price = price;
+
+            response.ProductId = product.Id;
+            return response;
+        }
     }
 
 }

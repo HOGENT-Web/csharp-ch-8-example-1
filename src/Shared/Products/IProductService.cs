@@ -8,6 +8,6 @@ namespace Shared.Products
         Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request);
         Task DeleteAsync(ProductRequest.Delete request);
         Task<ProductResponse.Create> CreateAsync(ProductRequest.Create request);
-
+        Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request);
     }
 }

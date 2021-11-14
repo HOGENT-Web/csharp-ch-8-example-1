@@ -24,7 +24,7 @@ namespace Server
 
             services.AddControllersWithViews().AddFluentValidation(config =>
             {
-                config.RegisterValidatorsFromAssemblyContaining<ProductDto.Create.Validator>();
+                config.RegisterValidatorsFromAssemblyContaining<ProductDto.Mutate.Validator>();
                 config.ImplicitlyValidateChildProperties = true;
             });
             services.AddSwaggerGen(c =>

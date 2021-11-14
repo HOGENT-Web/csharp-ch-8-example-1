@@ -37,5 +37,11 @@ namespace Client.Products
             var response = await client.GetFromJsonAsync<ProductResponse.GetIndex>(endpoint);
             return response;
         }
+
+        public async Task<ProductResponse.Edit> EditAsync(ProductRequest.Edit request)
+        {
+            var response = await client.PutAsJsonAsync(endpoint, request);
+            return await response.Content.ReadFromJsonAsync<ProductResponse.Edit>();
+        }
     }
 }

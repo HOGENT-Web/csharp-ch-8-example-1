@@ -23,7 +23,13 @@
 
         public class Create
         {
-            public ProductDto.Create Product { get; set; }
+            public ProductDto.Mutate Product { get; set; }
+        }
+
+        public class Edit
+        {
+            public int ProductId { get; set; }
+            public ProductDto.Mutate Product { get; set; }
         }
     }
 }

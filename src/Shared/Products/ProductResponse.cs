@@ -23,5 +23,10 @@ namespace Shared.Products
         {
             public int ProductId { get; set; }
         }
+
+        public class Edit
+        {
+            public int ProductId { get; set; }
+        }
     }
 }

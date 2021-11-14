@@ -39,5 +39,11 @@ namespace Server.Controllers
         {
             return productService.CreateAsync(request);
         }
+
+        [HttpPut]
+        public Task<ProductResponse.Edit> EditAsync([FromBody] ProductRequest.Edit request)
+        {
+            return productService.EditAsync(request);
+        }
     }
 }

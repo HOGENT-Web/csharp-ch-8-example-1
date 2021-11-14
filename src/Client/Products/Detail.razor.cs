@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Append.Blazor.Sidepanel;
+using Client.Products.Components;
+using Microsoft.AspNetCore.Components;
 using Shared.Products;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -12,11 +15,10 @@ namespace Client.Products
         [Parameter] public int Id { get; set; }
         [Inject] public IProductService ProductService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] public ISidepanelService Sidepanel { get; set; }
         protected override async Task OnParametersSetAsync()
         {
-            ProductRequest.GetDetail request = new() { ProductId = Id };
-            var response = await ProductService.GetDetailAsync(request);
-            product = response.Product;
+            await GetProductAsync();
         }
 
         private void RequestDelete()
@@ -36,5 +38,23 @@ namespace Client.Products
             NavigationManager.NavigateTo("/");
         }
 
+        private void OpenEditForm()
+        {
+            var callback = EventCallback.Factory.Create(this, GetProductAsync);
+
+            var parameters = new Dictionary<string, object> 
+            {
+                { nameof(Edit.ProductId), product.Id },
+                { nameof(Edit.OnProductChanged),callback  }
+            };
+            Sidepanel.Open<Edit>("Product", "Wijzigen", parameters);
+        }
+
+        private async Task GetProductAsync()
+        {
+            ProductRequest.GetDetail request = new() { ProductId = Id };
+            var response = await ProductService.GetDetailAsync(request);
+            product = response.Product;
+        }
     }
 }

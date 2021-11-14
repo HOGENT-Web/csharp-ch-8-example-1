@@ -20,7 +20,7 @@ namespace Shared.Products
             public bool IsInStock { get; set; }
         }
 
-        public class Create
+        public class Mutate
         {
             public string Name { get; set; }
             public decimal Price { get; set; }
@@ -28,7 +28,7 @@ namespace Shared.Products
             public string Category { get; set; }
             public bool InStock { get; set; }
 
-            public class Validator : AbstractValidator<Create>
+            public class Validator : AbstractValidator<Mutate>
             {
                 public Validator()
                 {

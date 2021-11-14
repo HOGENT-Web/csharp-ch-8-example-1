@@ -1,0 +1,53 @@
+﻿@page "/product/create"
+<h3 class="title">Product toevoegen</h3>
+
+<EditForm Model="@product" OnValidSubmit="@CreateProductAsync">
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <div class="field">
+        <label class="label">Naam</label>
+        <div class="control">
+            <InputText class="input" @bind-Value="product.Name" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Omschrijving</label>
+        <div class="control">
+            <InputTextArea class="textarea" @bind-Value="product.Description" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Prijs</label>
+        <div class="control">
+            <InputNumber class="input" @bind-Value="product.Price" />
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Categorie</label>
+        <div class="control">
+            <InputText class="input" @bind-Value="product.Category" />
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <label class="checkbox">
+                <InputCheckbox @bind-Value="product.InStock" />
+                In Stock
+            </label>
+        </div>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link" type="submit">Toevoegen</button>
+        </div>
+        <div class="control">
+            <a href="/" class="button is-link is-light">Annuleren</a>
+        </div>
+    </div>
+</EditForm>

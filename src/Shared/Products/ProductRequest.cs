@@ -1,4 +1,4 @@
-﻿namespace Shared.Products
+namespace Shared.Products
 {
     public static class ProductRequest
     {
@@ -9,6 +9,8 @@
             public bool OnlyActiveProducts { get; set; }
             public decimal? MinimumPrice { get; set; }
             public decimal? MaximumPrice { get; set; }
+            public int Page { get; set; }
+            public int Amount { get; set; } = 25;
         }
 
         public class GetDetail

@@ -1,4 +1,5 @@
-﻿using Shared.Products;
+﻿using Client.Extensions;
+using Shared.Products;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -33,8 +34,8 @@ namespace Client.Products
 
         public async Task<ProductResponse.GetIndex> GetIndexAsync(ProductRequest.GetIndex request)
         {
-            // Currently not doing anything with the parameters from the request.
-            var response = await client.GetFromJsonAsync<ProductResponse.GetIndex>(endpoint);
+            var queryParameters = request.GetQueryString();
+            var response = await client.GetFromJsonAsync<ProductResponse.GetIndex>($"{endpoint}?{queryParameters}");
             return response;
         }
 

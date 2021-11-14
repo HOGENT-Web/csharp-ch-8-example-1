@@ -1,6 +1,7 @@
-﻿using Domain.Common;
+using Domain.Common;
 using Domain.Products;
 using Shared.Products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Services.Products
         static FakeProductService()
         {
             var productFaker = new ProductFaker();
-            products = productFaker.Generate(10);
+            products = productFaker.Generate(50);
         }
 
         public async Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request)
@@ -38,7 +39,30 @@ namespace Services.Products
         {
             await Task.Delay(100);
             ProductResponse.GetIndex response = new();
-            response.Products = products.Select(x => new ProductDto.Index
+            var query = products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+                query = query.Where(x => x.Name.Contains(request.SearchTerm,StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(request.Category))
+                query = query.Where(x => x.Category.Name.Equals(request.Category,StringComparison.OrdinalIgnoreCase));
+
+            if (request.MinimumPrice is not null)
+                query = query.Where(x => x.Price.Value >= request.MinimumPrice);
+
+            if (request.MaximumPrice is not null)
+                query = query.Where(x => x.Price.Value <= request.MaximumPrice);
+
+            if (request.OnlyActiveProducts)
+                query = query.Where(x => x.IsEnabled);
+
+            response.TotalAmount = query.Count();
+
+            query = query.Skip(request.Amount * request.Page);
+            query = query.Take(request.Amount);
+
+            query.OrderBy(x => x.Name);
+            response.Products = query.Select(x => new ProductDto.Index
             {
                 Id = x.Id,
                 Name = x.Name,

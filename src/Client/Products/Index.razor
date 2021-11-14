@@ -18,7 +18,7 @@
             </div>
         </AuthorizeView>
         <h1 class="title is-size-6 is-uppercase has-text-grey">Zoek een product</h1>
-        <ProductFilters />
+        <ProductFilters Filter="filter" />
     </div>
     <div class="column">
         <div class="columns is-multiline">
@@ -29,6 +29,8 @@
                 </div>
             }
         </div>
+        <p class="has-text-centered">@products.Count van @totalFilteredAmount</p>
+        <p class="has-text-centered"><small >Implement Paging here</small></p>
     </div>
 </div>
 }

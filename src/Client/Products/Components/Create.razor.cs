@@ -2,7 +2,7 @@
 using Shared.Products;
 using System.Threading.Tasks;
 
-namespace Client.Products
+namespace Client.Products.Components
 {
     public partial class Create
     {

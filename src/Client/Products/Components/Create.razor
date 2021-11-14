@@ -1,7 +1,4 @@
-﻿@page "/product/create"
-<h3 class="title">Product toevoegen</h3>
-
-<EditForm Model="@product" OnValidSubmit="@CreateProductAsync">
+﻿<EditForm Model="@product" OnValidSubmit="@CreateProductAsync">
     <FluentValidationValidator />
     <ValidationSummary />
 
@@ -42,12 +39,9 @@
         </div>
     </div>
 
-    <div class="field is-grouped">
-        <div class="control">
-            <button class="button is-link" type="submit">Toevoegen</button>
-        </div>
-        <div class="control">
-            <a href="/" class="button is-link is-light">Annuleren</a>
-        </div>
+    <div class="buttons">
+        <button class="button is-link is-fullwidth" type="submit">Toevoegen</button>
+        <a href="/" class="button is-link is-light is-fullwidth">Annuleren</a>
     </div>
+
 </EditForm>

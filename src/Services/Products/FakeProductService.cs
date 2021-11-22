@@ -1,5 +1,6 @@
 using Domain.Common;
 using Domain.Products;
+using Services.Common;
 using Shared.Products;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,17 @@ namespace Services.Products
     public class FakeProductService : IProductService
     {
         private static readonly List<Product> products = new();
+        private readonly IStorageService storageService;
+
         static FakeProductService()
         {
             var productFaker = new ProductFaker();
             products = productFaker.Generate(50);
+        }
+
+        public FakeProductService(IStorageService storageService)
+        {
+            this.storageService = storageService;
         }
 
         public async Task<ProductResponse.GetDetail> GetDetailAsync(ProductRequest.GetDetail request)
@@ -88,13 +96,17 @@ namespace Services.Products
             var model = request.Product;
             var price = new Money(model.Price);
             var category = new Category(model.Category);
-            var product = new Product(model.Name, model.Description, price, model.InStock, null, category)
+            var imageFilename = Guid.NewGuid().ToString();
+            var imagePath = $"{storageService.StorageBaseUri}{imageFilename}";
+            var product = new Product(model.Name, model.Description, price, model.InStock, imagePath, category)
             {
                 Id = products.Max(x => x.Id) + 1
             };
 
             products.Add(product);
+            var uploadUri = storageService.CreateUploadUri(imageFilename);
             response.ProductId = product.Id;
+            response.UploadUri = uploadUri;
 
             return response;
         }

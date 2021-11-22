@@ -1,10 +1,12 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Services.Common;
 using Services.Products;
 using Shared.Products;
 
@@ -34,6 +36,7 @@ namespace Server
             });
             services.AddRazorPages();
             services.AddScoped<IProductService, FakeProductService>();
+            services.AddScoped<IStorageService, BlobStorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

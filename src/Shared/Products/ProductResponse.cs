@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Shared.Products
 {
@@ -22,6 +23,7 @@ namespace Shared.Products
         public class Create
         {
             public int ProductId { get; set; }
+            public Uri UploadUri { get; set; }
         }
 
         public class Edit

@@ -1,4 +1,5 @@
 ﻿using Append.Blazor.Sidepanel;
+using Client.Ordering;
 using Client.Products.Components;
 using Microsoft.AspNetCore.Components;
 using Shared.Products;
@@ -16,6 +17,7 @@ namespace Client.Products
         [Inject] public IProductService ProductService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
         [Inject] public ISidepanelService Sidepanel { get; set; }
+        [Inject] public Cart Cart { get; set; }
         protected override async Task OnParametersSetAsync()
         {
             await GetProductAsync();
@@ -55,6 +57,11 @@ namespace Client.Products
             ProductRequest.GetDetail request = new() { ProductId = Id };
             var response = await ProductService.GetDetailAsync(request);
             product = response.Product;
+        }
+
+        private void AddToCart()
+        {
+            Cart.AddItem(product.Id, product.Name, product.Price);
         }
     }
 }

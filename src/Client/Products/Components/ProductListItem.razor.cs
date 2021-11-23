@@ -1,4 +1,5 @@
 ﻿using Append.Blazor.Sidepanel;
+using Client.Ordering;
 using Microsoft.AspNetCore.Components;
 using Shared.Products;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Client.Products.Components
         [Parameter] public ProductDto.Index Product { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
         [Inject] public ISidepanelService Sidepanel { get; set; }
+        [Inject] public Cart Cart { get; set; }
         private void NavigateToDetail()
         {
             NavigationManager.NavigateTo($"product/{Product.Id}");
@@ -26,6 +28,11 @@ namespace Client.Products.Components
                 { nameof(Edit.OnProductChanged), callback  }
             };
             Sidepanel.Open<Edit>("Product", "Wijzigen", parameters);
+        }
+
+        private void AddToCart()
+        {
+            Cart.AddItem(Product.Id, Product.Name, Product.Price);
         }
     }
 

@@ -8,7 +8,7 @@ namespace Domain.Customers
         public CustomerFaker()
         {
             CustomInstantiator(f => new Customer(new CustomerName(f.Person.FirstName, f.Person.LastName), new AddressFaker()));
-            RuleFor(x => x.Id, f => f.Random.Int());
+            RuleFor(x => x.Id, f => f.Random.Int(1));
         }
     }
 }
